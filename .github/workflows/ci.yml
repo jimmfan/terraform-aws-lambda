@@ -42,11 +42,6 @@ jobs:
         env:
           TF_TOKEN: ${{ secrets.TF_API_TOKEN }}
         run: terraform init
-      
-      - name: Download layer.zip from previous job
-        uses: actions/download-artifact@v3
-        with:
-          name: layer
 
       - name: Terraform validate
         id: validate
