@@ -8,3 +8,7 @@ repos:
         args:
           - --args=--config= -c .terraform-docs.yaml
           - --hook-config=--path-to-file=README.md   
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0  # Use the ref you want to point at
+    hooks:
+    -   id: trailing-whitespace
