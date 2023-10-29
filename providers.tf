@@ -23,8 +23,8 @@ provider "aws" {
   skip_metadata_api_check = true
   default_tags {
     tags = {
-      GitHubRepo = "aws-python-lambda"
-      Workspace  = "aws-python-lambda"
+      GitHubRepo = "terraform-aws-python-lambda"
+      Workspace  = "terraform-aws-python-lambda"
     }
   }
 }
