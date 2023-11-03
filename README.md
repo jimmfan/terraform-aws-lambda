@@ -29,8 +29,8 @@ provider "aws" {
     }
   }
 }
- 
-# Example of lambda that has DynamoDB access 
+
+# Example of lambda that has DynamoDB access
 module "lambda_dynamo_api" {
   source  = ""
   version = ""
@@ -50,7 +50,7 @@ module "lambda_dynamo_api" {
     data.terraform_remote_state.workspace.outputs.layer1_arn,
     data.terraform_remote_state.workspace.outputs.layer2_arn
   ]
-  
+
   # Optional Environmental Variables
   environment_variables = {
     region              = var.region
@@ -104,7 +104,6 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_access_key"></a> [access\_key](#input\_access\_key) | n/a | `string` | n/a | yes |
 | <a name="input_account_id"></a> [account\_id](#input\_account\_id) | AWS Account ID | `number` | n/a | yes |
 | <a name="input_cloudwatch_log_tags"></a> [cloudwatch\_log\_tags](#input\_cloudwatch\_log\_tags) | Additional map of tags for cloudwatch. Merged with the tags variable and assigned to cloudwatch log group resources. | `map(string)` | `{}` | no |
 | <a name="input_dynamodb_table_name"></a> [dynamodb\_table\_name](#input\_dynamodb\_table\_name) | The name of the DynamoDB table that the lambda function needs access to.  If empty, DynamoDB policy will not be generated. | `string` | `""` | no |
@@ -118,7 +117,6 @@ No modules.
 | <a name="input_publish"></a> [publish](#input\_publish) | Whether to publish creation/change as new Lambda Function Version. Defaults to false | `bool` | `false` | no |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | `"us-east-1"` | no |
 | <a name="input_runtime"></a> [runtime](#input\_runtime) | Identifier of the function's runtime. Defaults to python3.8. Valid Values: nodejs \| nodejs4.3 \| nodejs6.10 \| nodejs8.10 \| nodejs10.x \| nodejs12.x \| nodejs14.x \| nodejs16.x \| java8 \| java8.al2 \| java11 \| python2.7 \| python3.6 \| python3.7 \| python3.8 \| python3.9 \| dotnetcore1.0 \| dotnetcore2.0 \| dotnetcore2.1 \| dotnetcore3.1 \| dotnet6 \| nodejs4.3-edge \| go1.x \| ruby2.5 \| ruby2.7 \| provided \| provided.al2 \| nodejs18.x \| python3.10 \| java17 \| ruby3.2 \| python3.11 | `string` | `"python3.8"` | no |
-| <a name="input_secret_key"></a> [secret\_key](#input\_secret\_key) | n/a | `string` | n/a | yes |
 | <a name="input_source_file"></a> [source\_file](#input\_source\_file) | File path of lambda function. ie. ../src/lambda | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to assign to resources. | `map(string)` | `{}` | no |
 | <a name="input_timeout"></a> [timeout](#input\_timeout) | Amount of time your Lambda Function has to run in seconds. Defaults to 3 | `number` | `3` | no |
