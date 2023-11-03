@@ -3,9 +3,6 @@ terraform {
   cloud {
     hostname     = "app.terraform.io"
     organization = "spike-spiegel"
-    workspaces {
-      name = "aws-python-lambda"
-    }
   }
   required_providers {
     aws = {
