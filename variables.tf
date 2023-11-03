@@ -60,10 +60,6 @@ variable "layers" {
   description = "List of Lambda Layer Version ARNs (maximum of 5) to attach to your Lambda Function"
   type        = list(string)
   default     = null
-  validation {
-    condition     = length(var.layers) <= 5
-    error_message = "Each lamba function supports up to five layers"
-  }
 }
 
 variable "timeout" {
