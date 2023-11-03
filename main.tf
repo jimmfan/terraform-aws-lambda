@@ -52,8 +52,7 @@ resource "aws_iam_policy" "iam_lambda_policy" {
 }
 
 resource "aws_iam_role" "iam_role_lambda" {
-  name_prefix          = "${var.lambda_name}-iam_role"
-  permissions_boundary = "arn:aws:iam::${var.account_id}:policy/ScopePermissions"
+  name_prefix = "${var.lambda_name}-iam_role"
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
