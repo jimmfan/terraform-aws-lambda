@@ -1,3 +1,4 @@
+'''
 # providers.tf
 terraform {
   required_version = "~> 1.0"
@@ -67,7 +68,7 @@ module "lambda_dynamo_api" {
     Project = "project-name"
   }
 }
-
+'''
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
