@@ -51,7 +51,7 @@ resource "aws_iam_policy" "iam_lambda_policy" {
   policy      = data.aws_iam_policy_document.lambda_policy_document.json
 }
 
-resource "aws_iam_role" "iam_role_lambda" {
+resource "aws_iam_role" "lambda" {
   name_prefix = "${var.lambda_name}-iam_role"
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
@@ -69,8 +69,8 @@ resource "aws_iam_role" "iam_role_lambda" {
 }
 
 # Policy Attachment on the role.
-resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
-  role       = aws_iam_role.iam_role_lambda.name
+resource "aws_iam_role_policy_attachment" "attach_policy_role" {
+  role       = aws_iam_role.lambda.name
   policy_arn = aws_iam_policy.iam_lambda_policy.arn
 }
 
@@ -82,7 +82,7 @@ data "archive_file" "lambda_function" {
 
 resource "aws_lambda_function" "lambda" {
   function_name    = var.lambda_name
-  role             = aws_iam_role.iam_role_lambda.arn
+  role             = aws_iam_role.lambda.arn
   handler          = var.handler
   filename         = data.archive_file.lambda_function.output_path
   source_code_hash = data.archive_file.lambda_function.output_base64sha256
@@ -94,7 +94,7 @@ resource "aws_lambda_function" "lambda" {
   # Publish if provisioned_concurrent_executions > 0 or if publish is explicitly set to true
   publish = var.provisioned_concurrent_executions > 0 || var.publish
 
-  # Map of environment variables that are accessible from the function code during execution.
+  # Map of environment variables accessible from the function during execution.
   environment {
     variables = var.environment_variables
   }
@@ -106,7 +106,7 @@ resource "aws_lambda_function" "lambda" {
   tags = var.tags
 
   depends_on = [
-    aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role,
+    aws_iam_role_policy_attachment.attach_policy_role,
     aws_cloudwatch_log_group.lambda_log_group
   ]
 
