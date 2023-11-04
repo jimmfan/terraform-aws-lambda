@@ -1,74 +1,73 @@
-'''
-# providers.tf
-terraform {
-  required_version = "~> 1.0"
-  cloud {
-    hostname     = "app.terraform.io"
-    organization = "spike-spiegel"
-    workspaces {
-      name = "aws-python-lambda"
+    # providers.tf
+    terraform {
+    required_version = "~> 1.0"
+    cloud {
+        hostname     = "app.terraform.io"
+        organization = "spike-spiegel"
+        workspaces {
+        name = "aws-python-lambda"
+        }
     }
-  }
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
+    required_providers {
+        aws = {
+        source  = "hashicorp/aws"
+        version = "~> 5.0"
+        }
     }
-  }
-}
-
-provider "aws" {
-  allowed_account_ids     = [var.account_id]
-  access_key              = var.access_key
-  secret_key              = var.secret_key
-  region                  = var.region
-  skip_metadata_api_check = true
-  default_tags {
-    tags = {
-      GitHubRepo = "aws-python-lambda"
-      Workspace  = "aws-python-lambda"
     }
-  }
-}
 
-# Example of lambda that has DynamoDB access
-module "lambda_dynamo_api" {
-  source  = ""
-  version = ""
+    provider "aws" {
+    allowed_account_ids     = [var.account_id]
+    access_key              = var.access_key
+    secret_key              = var.secret_key
+    region                  = var.region
+    skip_metadata_api_check = true
+    default_tags {
+        tags = {
+        GitHubRepo = "aws-python-lambda"
+        Workspace  = "aws-python-lambda"
+        }
+    }
+    }
 
-  lambda_name         = "lambda-name"
-  handler             = "index.handler"
-  account_id          = var.account_id
-  region              = var.region
-  runtime             = "python3.8"
-  source_file         = "../src/lambda_name/index.py"
+    # Example of lambda that has DynamoDB access
+    module "lambda_dynamo_api" {
+    source  = ""
+    version = ""
 
-  # Optional DynamoDB access
-  dynamodb_table_name = "example_dynamodb_table"
-
-  # Optional Lambda Layers
-  layers = [
-    data.terraform_remote_state.workspace.outputs.layer1_arn,
-    data.terraform_remote_state.workspace.outputs.layer2_arn
-  ]
-
-  # Optional Environmental Variables
-  environment_variables = {
+    lambda_name         = "lambda-name"
+    handler             = "index.handler"
+    account_id          = var.account_id
     region              = var.region
-  }
+    runtime             = "python3.8"
+    source_file         = "../src/lambda_name/index.py"
 
-  # Other Optional Arguments
-  timeout                           = 3
-  memory_size                       = 128
-  log_retention_in_days             = 14
-  provisioned_concurrent_executions = 20
+    # Optional DynamoDB access
+    dynamodb_table_name = "example_dynamodb_table"
 
-  # Optional Tags
-  tags = {
-    Project = "project-name"
-  }
-}
-'''
+    # Optional Lambda Layers
+    layers = [
+        data.terraform_remote_state.workspace.outputs.layer1_arn,
+        data.terraform_remote_state.workspace.outputs.layer2_arn
+    ]
+
+    # Optional Environmental Variables
+    environment_variables = {
+        region              = var.region
+    }
+
+    # Other Optional Arguments
+    timeout                           = 3
+    memory_size                       = 128
+    log_retention_in_days             = 14
+    provisioned_concurrent_executions = 20
+
+    # Optional Tags
+    tags = {
+        Project = "project-name"
+    }
+    }
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
